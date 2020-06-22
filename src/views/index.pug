@@ -1,6 +1,8 @@
 extends ../layouts/main-layout
+include ../components/demo/demo
 block vars
   - var title = 'Automated Static Base 🚀'
 
+
 block content
-  h1 Hello World!
+  +demo()
