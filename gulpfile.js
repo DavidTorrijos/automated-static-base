@@ -1,7 +1,21 @@
 const { dest, parallel, series, src, watch } = require('gulp')
+const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
+const cleanCSS = require('gulp-clean-css')
 const pug = require('gulp-pug')
 const sass = require('gulp-sass')
+
+const browsers = [
+  'ie >= 10',
+  'ie_mob >= 10',
+  'ff >= 30',
+  'chrome >= 34',
+  'safari >= 7',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 4.4',
+  'bb >= 10'
+]
 
 const pugCompile = () => (
   src('./src/views/*.pug')
@@ -13,6 +27,8 @@ const pugCompile = () => (
 const sassCompile = () => (
   src('./src/stylesheets/style.scss')
     .pipe(sass())
+    .pipe(autoprefixer(browsers))
+    .pipe(cleanCSS())
     .pipe(dest('./build/stylesheets'))
     .pipe(browserSync.stream())
 )
